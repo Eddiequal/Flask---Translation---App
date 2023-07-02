@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+<!-- TITLE BLOCK -->
+{% block title%} Introduction {% endblock%}
+
+<!-- STYLE BLOCK -->
+{% block style %}
+<style>
+    h1{
+        font-size: 30px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn-primary{
+        margin-right: 10px;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+<!-- CONTENT BLOCK -->
+{% block content%}
+<h1> Add your words to organize your learning process!</h1>
+<!-- LOGIN AND REGISTER LINKS -->
+<div style="display:flex;justify-content:center;align-items:center;">
+    <a href={{url_for('view.login')}} class='btn btn-primary'> Login </a>
+    <a href={{url_for('view.register')}} class='btn btn-primary'> Register </a>
+</div>
+
+{% endblock%}

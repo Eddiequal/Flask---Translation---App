@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+<!-- TITLE BLOCK -->
+{% block title%} Login {% endblock%}
+
+<!-- STYLE BLOCK -->
+{% block style %}
+<style>
+  .form-group{
+    width: 350px;
+    height: 20px;
+    margin-bottom: 70px;
+    border-radius: 20px
+  }
+  .login-form{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+    margin-left: 500px;
+    border-style: solid;
+    border-color: #d4d3d2;
+    border-radius: 5px;
+    border-width: 0.5px;
+    padding: 50px 30px 50px 30px;
+  }
+  .btn-primary{
+    margin-left: 80px;
+  }
+
+</style>
+{% endblock %}
+
+<!-- CONTENT BLOCK -->
+{% block content%}
+<!-- LOGIN -->
+<div class='login-form'>
+  <form method="POST" action="{{ url_for('view.login') }}">
+      {{ form.csrf_token }}
+      <!-- USERNAME -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        {{ form.username(class="form-control", id="username") }}
+      </div>
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        {{ form.password(class="form-control", id="password") }}
+      </div>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      <!-- LINK TO REGISTER -->
+      <a class="register_user" href="{{url_for('view.register')}}">New user? Register here</a>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+{% endblock%}

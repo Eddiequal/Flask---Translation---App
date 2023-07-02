@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+<!-- TITLE BLOCK -->
+{% block title%} Dictionary {% endblock%}
+
+<!-- STYLE BLOCK -->
+{% block style %}
+<style>
+    h1{
+        text-align: center;
+        font-size: 30px;
+        margin-top: 80px;
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    h2{
+      font-size: 20px;
+      margin-top: 70px;
+      margin-left: 70px;
+      margin-right: 100px;
+      margin-bottom: 30px;
+    }
+    .form-control{
+      width: 350px;
+      height: 50px;
+      box-sizing: border-box;
+      margin-right: 20px;
+    }
+
+    .btn-primary{
+      height: 50px;
+      margin-right: -50px;
+    }
+    
+    .form-inline{
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      margin-left: 70px;
+    }
+    .form-select-base{
+      padding: 5px 3px 5px 3px;
+      border-style: solid;
+      margin-bottom: 20px;
+      border-color: #d4d3d2;
+      border-radius: 3px;
+    }
+
+    .form-select-target{
+      padding: 5px 3px 5px 3px;
+      margin-left: 55px;
+      margin-right: 900px;
+      margin-bottom: 20px;
+      border-style: solid;
+      border-color: #d4d3d2;
+      border-radius: 3px;
+    }
+    .shuffle{
+      margin-left: 60px;
+    }
+
+</style>
+{% endblock %}
+
+<!-- CONTENT BLOCK -->
+{% block content%}
+<!-- CREATE A NEW WORD-->
+<h2><b>Add a new word</b></h2>
+<!-- CREATE A WORD -->
+<form action="/create" method="post" class="form-inline"> 
+  <!-- BASE LANGUAGE -->
+  <select name='first_lang' class="form-select-base" aria-label="Default select example">
+    <option selected> Choose base language</option>
+    <option value="en"> English </option>
+    <option value="es"> Spanish </option>
+    <option value="tr"> Turkish </option>
+    <option value="fr"> French </option>
+    <option value="de"> German </option>
+    <option value="zh-CN"> Chinese </option>
+    <option value="ja"> Japanese </option>
+    <option value="kk"> Kazahstan </option>
+    <option value="ar"> Arabic </option>
+  </select>
+  <!-- TARGET LANGUAGE -->
+  <select name='second_lang' class="form-select-target" aria-label="Default select example">
+    <option selected> Choose target language</option>
+    <option value="en"> English </option>
+    <option value="es"> Spanish </option>
+    <option value="tr"> Turkish </option>
+    <option value="fr"> French </option>
+    <option value="de"> German </option>
+    <option value="zh-CN"> Chinese </option>
+    <option value="ja"> Japanese </option>
+    <option value="kk"> Kazahstan </option>
+    <option value="ar"> Arabic </option>
+  </select>
+  <!-- DEFINITION AND MEANING -->
+  <input type="hidden" name="folder_id" class="form-control">
+  <input type="text" name="Definition" class="form-control" placeholder="Definition">
+  <input type="text" name="Meaning" class="form-control" placeholder="Meaning">
+  <button type="submit" value="Create" class='btn btn-primary'> Create </button>
+</form>
+<!-- UPDATE AND DELETE WORD -->
+<table>
+  <tbody>
+    {% for row in data %}
+    <tr>
+      <td>
+        <form action="/update" method="post" class="form-inline" style="float:left">
+          <input type="hidden" name="id" class="form-control" value="{{ row[0] }}">
+          <input type="text" name="Definition" class="form-control" value="{{ row[1] }}">
+          <input type="text" name="Meaning" class="form-control" value="{{ row[2] }}">
+          <input type="hidden" name="word_id" class="form-control" value="{{ row[4] }}">
+          <button type="submit" value="Update" class='btn btn-primary'> Update </button>
+        </form>
+        <form action="/delete" method="post" class="form-inline" style="float:right">
+          <input type="hidden" name="id" class="form-control" value="{{ row[0] }}">
+          <input type="hidden" name="word_id" class="form-control" value="{{ row[4] }}">
+          <button id='delete-button' type="submit" value="Delete" class='btn btn-primary'> Delete </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock%}
